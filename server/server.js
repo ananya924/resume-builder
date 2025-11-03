@@ -14,18 +14,23 @@ const PORT = process.env.Port || 3000;
 
 await connectDB();
 
-// ✅ Allow frontend (Vercel) to access backend
-app.use(cors({
-  origin: ["https://your-vercel-app-name.vercel.app"], // replace this with your actual Vercel frontend URL
-  credentials: true,
-}));
+
+
+app.use(
+  cors({
+    origin: ["https://resume-builder-tau-snowy.vercel.app"], // your Vercel frontend
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+
 
 
 
 
 
 app.use(express.json())
-app.use(cors())
+
 
 app.get('/', (req, res)=> res.send("Server is live..."))
 app.use('/api/users', userRouter)
