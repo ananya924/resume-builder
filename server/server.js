@@ -10,7 +10,19 @@ const app = express();
 const PORT = process.env.Port || 3000;
 
 // Database Connection
-await connectDB()
+
+
+await connectDB();
+
+// ✅ Allow frontend (Vercel) to access backend
+app.use(cors({
+  origin: ["https://your-vercel-app-name.vercel.app"], // replace this with your actual Vercel frontend URL
+  credentials: true,
+}));
+
+
+
+
 
 app.use(express.json())
 app.use(cors())
