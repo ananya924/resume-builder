@@ -1,17 +1,23 @@
-// server/middlewares/corsMiddleware.js
 import cors from "cors";
 
-// Allow all origins but still reflect origin for requests (better if credentials true)
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://resume-builder-tau-snowy.vercel.app"
+];
+
 const corsOptions = {
-  origin: true, // reflect request origin, effectively allows any origin
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error(`Origin ${origin} not allowed by CORS`));
+    }
+  },
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
-  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
-  credentials: true,           // set false if you don't need cookies/auth
-  preflightContinue: false,   // let cors() handle the OPTIONS response
-  optionsSuccessStatus: 204
+  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"], 
+  credentials: true,
 };
 
-const corsMiddleware = cors(corsOptions);
-
-export { corsMiddleware, corsOptions };
-export default corsMiddleware;
+export default cors(corsOptions);
