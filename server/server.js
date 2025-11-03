@@ -10,19 +10,8 @@ const app = express();
 const PORT = process.env.Port || 3000;
 
 // Database Connection
+await connectDB()
 
-
-await connectDB();
-
-
-
-app.use(
-  cors({
-    origin: ["https://resume-builder-tau-snowy.vercel.app"], // your Vercel frontend
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
 
 
 
@@ -30,7 +19,7 @@ app.use(
 
 
 app.use(express.json())
-
+app.use(cors())
 
 app.get('/', (req, res)=> res.send("Server is live..."))
 app.use('/api/users', userRouter)
