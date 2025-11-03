@@ -1,9 +1,6 @@
 import cors from "cors";
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://resume-builder-tau-snowy.vercel.app"
-];
+const allowedOrigins = ["*"];
 
 const corsOptions = {
   origin: (origin, callback) => {
