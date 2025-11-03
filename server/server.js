@@ -5,7 +5,6 @@ import userRouter from "./routes/userRoutes.js";
 import resumeRouter from "./routes/resumeRoutes.js";
 import aiRouter from "./routes/aiRoutes.js";
 import corsMiddleware from "./middlewares/corsMiddleware.js";
-import cors from "cors";
 
 const app = express();
 const PORT = process.env.Port || 3000;
@@ -16,9 +15,9 @@ await connectDB()
 dotenv.config();
 
 app.use(express.json())
-app.use(corsMiddleware)
+app.use(corsMiddleware);
+app.options("*", corsMiddleware); 
 
-app.options('*', cors());
 app.get('/', (req, res)=> res.send("Server is live..."))
 app.use('/api/users', userRouter)
 app.use('/api/resumes', resumeRouter)
