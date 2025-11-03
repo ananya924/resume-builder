@@ -1,6 +1,6 @@
 # Node modules (both frontend & backend)
 node_modules/
-
+*.local
 # Build folders
 client/build/
 dist/
